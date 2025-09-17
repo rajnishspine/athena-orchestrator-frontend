@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Athena - Wisdom That Drives Global Growth</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- GSAP for Greek-inspired animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="athena-app">
+
+        <!-- Ultra Minimal Header -->
+        <header class="athena-header">
+            <div class="athena-logo-center">
+                <img src="./Athena Docs/Logo/Athena Face with Text and Caption.png" alt="Athena" class="athena-logo">
+            </div>
+            <div class="connection-dot"></div>
+        </header>
+
+        <!-- Welcome State -->
+        <div class="welcome-state" id="welcomeState">
+            <div class="welcome-container">
+                <div class="athena-identity">
+                    <h2 class="greeting">Greetings, seeker of wisdom.</h2>
+                    <p class="description">I am Athena, guardian of Venus Remedies' trade intelligence. Within me lie the chronicles of every export opportunity, market insight, and competitive intelligence across 100+ countries.</p>
+                </div>
+
+                <div class="wisdom-grid" role="grid" aria-label="Business Intelligence Categories">
+                    <button class="wisdom-card"
+                            onclick="askAthena('What are our top export opportunities in Southeast Asia this quarter?')"
+                            aria-label="Explore export opportunities - Get insights on Southeast Asia markets"
+                            tabindex="0">
+                        <div class="wisdom-icon greek-export" role="img" aria-label="Export opportunities icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" focusable="false">
+                                <path d="M3 3h18l-2 13H5L3 3Z"/>
+                                <path d="M16 16v6"/>
+                                <path d="M8 16v6"/>
+                                <circle cx="9" cy="9" r="1"/>
+                                <circle cx="20" cy="9" r="1"/>
+                                <circle cx="15" cy="9" r="1"/>
+                            </svg>
+                        </div>
+                        <span class="wisdom-text">Export Opportunities</span>
+                    </button>
+                    <button class="wisdom-card"
+                            onclick="askAthena('Show me tender analysis for oncology products with success probability scoring')"
+                            aria-label="Explore tender intelligence - Analyze oncology product opportunities with success scoring"
+                            tabindex="0">
+                        <div class="wisdom-icon greek-tender" role="img" aria-label="Tender intelligence icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" focusable="false">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                                <path d="M2 17l10 5 10-5"/>
+                                <path d="M2 12l10 5 10-5"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                        </div>
+                        <span class="wisdom-text">Tender Intelligence</span>
+                    </button>
+                    <button class="wisdom-card"
+                            onclick="askAthena('How is our market share performing against top 3 competitors in Europe?')"
+                            aria-label="Explore market analysis - Compare market share performance against competitors in Europe"
+                            tabindex="0">
+                        <div class="wisdom-icon greek-market" role="img" aria-label="Market analysis icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" focusable="false">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M2 12h20"/>
+                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                                <path d="M8 12l8-8"/>
+                            </svg>
+                        </div>
+                        <span class="wisdom-text">Market Analysis</span>
+                    </button>
+                    <button class="wisdom-card"
+                            onclick="askAthena('What regulatory changes should we track for Q4 market entry strategy?')"
+                            aria-label="Explore regulatory intelligence - Track Q4 regulatory changes for market entry strategy"
+                            tabindex="0">
+                        <div class="wisdom-icon greek-regulatory" role="img" aria-label="Regulatory intelligence icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" focusable="false">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14,2 14,8 20,8"/>
+                                <line x1="16" y1="13" x2="8" y2="13"/>
+                                <line x1="16" y1="17" x2="8" y2="17"/>
+                                <polyline points="10,9 9,9 8,9"/>
+                            </svg>
+                        </div>
+                        <span class="wisdom-text">Regulatory Intelligence</span>
+                    </button>
+                    <button class="wisdom-card sessions-card"
+                            onclick="showSessionsList()"
+                            aria-label="View previous chat sessions - Continue your conversations"
+                            tabindex="0">
+                        <div class="wisdom-icon greek-sessions" role="img" aria-label="Chat sessions icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" focusable="false">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                                <path d="M8 9h8"/>
+                                <path d="M8 13h6"/>
+                            </svg>
+                        </div>
+                        <span class="wisdom-text">Previous Chats</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat State -->
+        <div class="chat-state" id="chatState">
+            <div class="messages-area" id="messagesArea">
+                <!-- Messages will be populated here -->
+            </div>
+        </div>
+
+        <!-- Input Area (Always at bottom) -->
+        <div class="input-zone">
+            <div class="input-container">
+                <textarea
+                    id="messageInput"
+                    class="message-input"
+                    placeholder="Ask Athena..."
+                    rows="1"
+                    maxlength="2000"
+                ></textarea>
+                <button class="send-button" id="sendButton" onclick="sendMessage()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="22" y1="2" x2="11" y2="13"/>
+                        <polygon points="22,2 15,22 11,13 2,9"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="input-footer">
+                <span class="char-count"><span id="charCount">0</span>/2000</span>
+                <span class="powered-by">Powered by Luna Intelligence</span>
+                <button class="config-button" id="configButton" onclick="toggleConfig()" title="Configure API">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Configuration Panel -->
+        <div class="config-panel" id="configPanel">
+            <div class="config-content">
+                <h3>API Configuration</h3>
+                <div class="config-field">
+                    <label for="apiUrl">API Base URL:</label>
+                    <input type="text" id="apiUrl" placeholder="http://localhost:8000" />
+                </div>
+                <div class="config-actions">
+                    <button class="config-test" onclick="testConnection()">Test Connection</button>
+                    <button class="config-save" onclick="saveConfig()">Save</button>
+                    <button class="config-cancel" onclick="toggleConfig()">Cancel</button>
+                </div>
+                <div class="config-status" id="configStatus"></div>
+            </div>
+        </div>
+
+        <!-- Sessions List Modal -->
+        <div class="sessions-modal" id="sessionsModal" style="display: none;">
+            <div class="sessions-modal-content">
+                <div class="sessions-header">
+                    <h3>Previous Conversations</h3>
+                    <button class="sessions-close" onclick="hideSessionsList()">&times;</button>
+                </div>
+                <div class="sessions-list" id="sessionsList">
+                    <!-- Sessions will be populated here -->
+                </div>
+                <div class="sessions-footer">
+                    <button class="new-chat-btn" onclick="startNewChat()">Start New Chat</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="athena-thinking">
+                <div class="athena-leaf-pulse">
+                    <img src="./Athena Docs/Logo/Athena Leaf - Sketch.png" alt="Athena" class="leaf-pulse">
+                </div>
+                <p class="thinking-text">Athena is analyzing...</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Athena API Connection Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .success { color: green; }
+        .error { color: red; }
+        .info { color: blue; }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #0056b3; }
+        pre {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔧 Athena API Connection Test</h1>
+    
+    <div class="test-section">
+        <h2>API Configuration</h2>
+        <label for="apiUrl">API Base URL:</label><br>
+        <input type="text" id="apiUrl" value="http://localhost:8001" placeholder="http://localhost:8001">
+        <button onclick="testConnection()">Test Connection</button>
+        <div id="connectionResult"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Health Check</h2>
+        <button onclick="testHealth()">Test Health Endpoint</button>
+        <div id="healthResult"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Chat Endpoint Test</h2>
+        <button onclick="testChat()">Test Chat Endpoint</button>
+        <div id="chatResult"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>CORS Test</h2>
+        <button onclick="testCORS()">Test CORS Configuration</button>
+        <div id="corsResult"></div>
+    </div>
+
+    <script>
+        async function testConnection() {
+            const url = document.getElementById('apiUrl').value;
+            const resultDiv = document.getElementById('connectionResult');
+            
+            resultDiv.innerHTML = '<div class="info">Testing connection...</div>';
+            
+            try {
+                const response = await fetch(`${url}/healthz`);
+                if (response.ok) {
+                    const data = await response.json();
+                    resultDiv.innerHTML = `<div class="success">✅ Connection successful!<br>Response: <pre>${JSON.stringify(data, null, 2)}</pre></div>`;
+                } else {
+                    resultDiv.innerHTML = `<div class="error">❌ Connection failed: ${response.status} ${response.statusText}</div>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error">❌ Connection error: ${error.message}</div>`;
+            }
+        }
+
+        async function testHealth() {
+            const url = document.getElementById('apiUrl').value;
+            const resultDiv = document.getElementById('healthResult');
+            
+            resultDiv.innerHTML = '<div class="info">Testing health endpoint...</div>';
+            
+            try {
+                const response = await fetch(`${url}/healthz`);
+                const data = await response.json();
+                
+                resultDiv.innerHTML = `
+                    <div class="success">
+                        ✅ Health check passed!<br>
+                        Status: ${data.ok ? 'OK' : 'ERROR'}<br>
+                        Database: ${data.db ? 'Connected' : 'Disconnected'}<br>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    </div>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error">❌ Health check failed: ${error.message}</div>`;
+            }
+        }
+
+        async function testChat() {
+            const url = document.getElementById('apiUrl').value;
+            const resultDiv = document.getElementById('chatResult');
+            
+            resultDiv.innerHTML = '<div class="info">Testing chat endpoint...</div>';
+            
+            try {
+                const response = await fetch(`${url}/chat`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        session_id: 'test_session_' + Date.now(),
+                        message: 'Hello, this is a test message',
+                        title: null
+                    })
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    resultDiv.innerHTML = `
+                        <div class="success">
+                            ✅ Chat endpoint working!<br>
+                            Answer: ${data.answer}<br>
+                            Latency: ${data.latency_ms}ms<br>
+                            <pre>${JSON.stringify(data, null, 2)}</pre>
+                        </div>
+                    `;
+                } else {
+                    const errorText = await response.text();
+                    resultDiv.innerHTML = `<div class="error">❌ Chat endpoint failed: ${response.status} ${response.statusText}<br><pre>${errorText}</pre></div>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error">❌ Chat endpoint error: ${error.message}</div>`;
+            }
+        }
+
+        async function testCORS() {
+            const url = document.getElementById('apiUrl').value;
+            const resultDiv = document.getElementById('corsResult');
+            
+            resultDiv.innerHTML = '<div class="info">Testing CORS configuration...</div>';
+            
+            try {
+                // Test preflight request
+                const preflightResponse = await fetch(`${url}/chat`, {
+                    method: 'OPTIONS',
+                    headers: {
+                        'Origin': window.location.origin,
+                        'Access-Control-Request-Method': 'POST',
+                        'Access-Control-Request-Headers': 'Content-Type'
+                    }
+                });
+                
+                const corsHeaders = {
+                    'Access-Control-Allow-Origin': preflightResponse.headers.get('Access-Control-Allow-Origin'),
+                    'Access-Control-Allow-Methods': preflightResponse.headers.get('Access-Control-Allow-Methods'),
+                    'Access-Control-Allow-Headers': preflightResponse.headers.get('Access-Control-Allow-Headers'),
+                    'Access-Control-Allow-Credentials': preflightResponse.headers.get('Access-Control-Allow-Credentials')
+                };
+                
+                resultDiv.innerHTML = `
+                    <div class="success">
+                        ✅ CORS preflight successful!<br>
+                        <pre>${JSON.stringify(corsHeaders, null, 2)}</pre>
+                    </div>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error">❌ CORS test failed: ${error.message}</div>`;
+            }
+        }
+
+        // Auto-test on load
+        window.addEventListener('load', () => {
+            setTimeout(testConnection, 1000);
+        });
+    </script>
+</body>
+</html>

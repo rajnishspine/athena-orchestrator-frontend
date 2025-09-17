@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Website with AC Creations Footer</title>
+    <link rel="stylesheet" href="../ac-footer.css">
+    <style>
+        /* Sample website styles */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        header {
+            background: #fff;
+            padding: 2rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        h1 { color: #2c3e50; margin-bottom: 1rem; }
+        
+        main {
+            min-height: 70vh;
+            padding: 4rem 0;
+            background: #f8f9fa;
+        }
+        
+        .content {
+            background: white;
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Sample Website</h1>
+            <p>This demonstrates how the new prominent AC Creations footer integrates with any website.</p>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="content">
+                <h2>Main Content Area</h2>
+                <p>Your website content goes here. The large AC Creations footer below (200px tall) will automatically switch between white logo (on dark gradients) and black logo (on light gradients) based on the time-based gradient colors, providing a prominent professional signature for your work.</p>
+                
+                <p>Features of this prominent footer:</p>
+                <ul>
+                    <li>Large 200px height (2.5x bigger) for maximum brand impact</li>
+                    <li>Smart logo switching (white logo on dark gradients, black logo on light gradients)</li>
+                    <li>Interactive WebGL gradients with time-based colors</li>
+                    <li>Fully responsive design (200px → 150px → 120px)</li>
+                    <li>Prominent AC Creations branding</li>
+                    <li>Natural positioning (appears when scrolled to bottom)</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <!-- AC Creations Footer -->
+    <footer class="ac-creations-footer">
+        <div class="interactive-overlay" id="interactiveOverlay"></div>
+        <div class="logo-overlay">
+            <img src="../AC Creations Logo Dark Background.png" 
+                 alt="AC Creations" 
+                 class="logo-image" 
+                 id="logoImage">
+        </div>
+        <div class="cursor" id="cursor"></div>
+    </footer>
+
+    <script src="../ac-footer.js"></script>
+</body>
+</html>

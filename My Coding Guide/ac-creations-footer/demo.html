@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AC Creations Footer - Live Demo</title>
+    <link rel="stylesheet" href="ac-footer.css">
+    <style>
+        /* Demo page specific styles */
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .demo-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .demo-title {
+            font-size: 3rem;
+            font-weight: 300;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+        
+        .demo-subtitle {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+        
+        .demo-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 800px;
+            margin: 2rem 0;
+        }
+        
+        .feature {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .feature h3 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature p {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        .demo-note {
+            background: rgba(52, 152, 219, 0.1);
+            border: 1px solid rgba(52, 152, 219, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 2rem 0;
+            color: #2980b9;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .demo-title {
+                font-size: 2rem;
+            }
+            .demo-features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Demo Content -->
+    <main class="demo-content">
+        <h1 class="demo-title">Your Professional Signature</h1>
+        <p class="demo-subtitle">
+            Every website deserves a footer that represents quality work. This one fills the full width, shows your logo perfectly, and makes clients think "this developer really cares about details."
+        </p>
+        
+        <div class="demo-features">
+            <div class="feature">
+                <h3>🎯 No White Space Issues</h3>
+                <p>Fills the entire width on mobile. No more embarrassing gaps on the right side.</p>
+            </div>
+            <div class="feature">
+                <h3>🎨 Logo Always Shows</h3>
+                <p>Smart path detection finds your logo files automatically. No more broken images.</p>
+            </div>
+            <div class="feature">
+                <h3>🖱️ Feels Alive</h3>
+                <p>Subtle mouse effects and time-based colors that change throughout the day.</p>
+            </div>
+            <div class="feature">
+                <h3>⚡ Works Everywhere</h3>
+                <p>Any device, any browser, any project. Just works. Every time.</p>
+            </div>
+        </div>
+        
+        <div class="demo-note">
+            <strong>👇 See the difference below</strong><br>
+            This footer makes every website look more professional. Notice how it fills the full width perfectly and your logo is prominently displayed.
+        </div>
+    </main>
+
+    <!-- AC Creations Footer Component -->
+    <footer class="ac-creations-footer">
+        <div class="interactive-overlay" id="interactiveOverlay"></div>
+        <div class="logo-overlay">
+            <img src="AC Creations Logo Dark Background.png" 
+                 alt="AC Creations" 
+                 class="logo-image" 
+                 id="logoImage">
+        </div>
+        <div class="cursor" id="cursor"></div>
+    </footer>
+
+    <script src="ac-footer.js"></script>
+</body>
+</html>
