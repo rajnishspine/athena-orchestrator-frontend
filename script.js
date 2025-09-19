@@ -16,7 +16,7 @@ class AthenaState {
       role: 'Venus Remedies'
     };
     this.sessionId = this.generateSessionId();
-    this.apiBaseUrl = 'http://localhost:8001'; // Default to localhost, can be configured
+    this.apiBaseUrl = 'http://10.0.33.97:8001'; // Default to localhost, can be configured
   }
 
   generateSessionId() {
@@ -537,7 +537,7 @@ function createMessageElement(message) {
 
   // Add data preview if available
   if (!isUser && message.data_preview && message.data_preview.rows && message.data_preview.rows.length > 0) {
-    contentHtml += createDataPreviewHtml(message.data_preview);
+    // contentHtml += createDataPreviewHtml(message.data_preview);
   }
 
   // Add clarification options if available
