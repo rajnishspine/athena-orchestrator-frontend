@@ -89,7 +89,7 @@ body {
 
 /* ===== APP CONTAINER ===== */
 .athena-app {
-  height: 100vh;
+  height: 90vh;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -150,6 +150,12 @@ body {
   justify-content: center;
   padding: var(--space-4) var(--space-8) var(--space-8);
   background: linear-gradient(135deg, var(--surface-primary) 0%, var(--surface-secondary) 100%);
+  padding: 160px 0;
+  overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+  overflow: scroll;
 }
 
 .welcome-container {
