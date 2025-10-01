@@ -68,7 +68,7 @@
 /* ===== RESET & BASE ===== */
 * {
   margin: 0;
-  padding: 0;
+  /* padding: 0; */
   box-sizing: border-box;
 }
 
@@ -481,7 +481,7 @@ body {
   padding: var(--space-5);
   border-radius: var(--radius-2xl) var(--radius-2xl) var(--radius-2xl) var(--radius-sm);
   box-shadow: var(--shadow);
-  position: relative;
+  /* position: relative; */
 }
 
 .athena-message .message-content::before {
@@ -984,6 +984,49 @@ body {
   color: #DC2626;
   font-weight: 500;
 }
+
+
+.message-text h1, 
+.message-text h2, 
+.message-text h3 {
+  margin: 0.5em 0;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+}
+
+.message-text ul {
+  margin: 0.5em 0 0.5em 1.5em;
+  list-style: disc;
+}
+
+.message-text strong {
+  font-weight: 600;
+  color: var(--color-primary-dark);
+}
+
+.message-text table {
+  border-collapse: collapse;
+  margin: 0.5em 0;
+  width: 100%;
+  font-size: 0.9em;
+}
+
+.message-text th,
+.message-text td {
+  border: 1px solid #ddd;
+  /* padding: 6px 10px; */
+  text-align: left;
+}
+
+.message-text th {
+  background-color: var(--color-primary-lighter, #f5f5f5);
+  font-weight: 600;
+}
+
+.message-text tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
 
 /* ===== LOADING OVERLAY ===== */
 .loading-overlay {

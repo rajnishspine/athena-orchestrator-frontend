@@ -556,14 +556,40 @@ function createMessageElement(message) {
   return messageDiv;
 }
 
+// function formatMessageContent(content) {
+//   // Basic markdown-style formatting for light theme
+//   return content
+//     // Headings
+//     .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+//     .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+//     .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+//     // Bold & Italics
+//     .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+//     .replace(/\*(.*?)\*/g, '<em>$1</em>')
+//     // Inline code
+//     .replace(/`(.*?)`/g, '<code style="background: var(--color-primary-lighter); padding: 2px 4px; border-radius: 4px; font-family: monospace;">$1</code>')
+//     // Line breaks
+//     .replace(/\n/g, '<br>');
+// }
+
 function formatMessageContent(content) {
-  // Basic markdown-style formatting for light theme
-  return content
-    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*(.*?)\*/g, '<em>$1</em>')
-    .replace(/\n/g, '<br>')
-    .replace(/`(.*?)`/g, '<code style="background: var(--color-primary-lighter); padding: 2px 4px; border-radius: 4px; font-family: monospace;">$1</code>');
+  if (!content) return "";
+
+  // Configure marked
+  marked.setOptions({
+    breaks: true,
+    gfm: true,
+    sanitize: false, // allow HTML
+    headerIds: false
+  });
+
+  // Use marked’s parser
+  const html = marked.parse(content);
+
+  return html;
 }
+
+
 
 function createDataPreviewHtml(dataPreview) {
   if (!dataPreview.columns || !dataPreview.rows || dataPreview.rows.length === 0) {
