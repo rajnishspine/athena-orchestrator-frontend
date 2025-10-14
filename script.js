@@ -575,17 +575,26 @@ function createMessageElement(message) {
 function formatMessageContent(content) {
   if (!content) return "";
 
-  // Configure marked
   marked.setOptions({
     breaks: true,
     gfm: true,
-    sanitize: false, // allow HTML
-    headerIds: false
+    sanitize: true, // Changed to TRUE for security
+    headerIds: false,
+    // Add Athena-specific enhancements
+    highlight: function(code, lang) {
+      // Custom code highlighting for metrics
+      return `<div class="metric-block">${code}</div>`;
+    }
   });
 
-  // Use marked’s parser
-  const html = marked.parse(content);
-
+  let html = marked.parse(content);
+  
+  // Additional Athena-specific processing
+  html = html.replace(
+    /(₹\s*\d[\d,]*)/g, 
+    '<span class="currency-value">$1</span>'
+  );
+  
   return html;
 }
 

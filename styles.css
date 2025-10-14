@@ -990,6 +990,7 @@ body {
 .message-text h2, 
 .message-text h3 {
   margin: 0.5em 0;
+  font-size: 1.2em;
   font-weight: 600;
   color: var(--color-primary-dark);
 }
