@@ -16,11 +16,41 @@
     <!-- Styles -->
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body data-theme="light">
     <div class="athena-app">
 
         <!-- Ultra Minimal Header -->
         <header class="athena-header">
+            <div class="header-right">
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+                    <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"/>
+                        <line x1="12" y1="1" x2="12" y2="3"/>
+                        <line x1="12" y1="21" x2="12" y2="23"/>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                        <line x1="1" y1="12" x2="3" y2="12"/>
+                        <line x1="21" y1="12" x2="23" y2="12"/>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                    <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                </button>
+                <button class="wisdom-icon2"
+                            onclick="showSessionsList()" aria-label="View previous chat sessions - Continue your conversations"
+                            tabindex="0">
+                        <div class="greek-sessions" role="img" aria-label="Chat sessions icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" focusable="false">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                                <path d="M8 9h8"/>
+                                <path d="M8 13h6"/>
+                            </svg>
+                        </div>
+                        
+                    </button>
+            </div>
             <div class="athena-logo-center">
                 <img src="./Athena Docs/Logo/Athena Face with Text and Caption.png" alt="Athena" class="athena-logo">
             </div>
@@ -29,7 +59,7 @@
 
         <!-- Welcome State -->
         <div class="welcome-state" id="welcomeState">
-            <div class="welcome-container">
+            <div class="welcome-container margin350">
                 <div class="athena-identity">
                     <h2 class="greeting">Greetings, seeker of wisdom.</h2>
                     <p class="description">I am Athena, guardian of Venus Remedies' trade intelligence. Within me lie the chronicles of every export opportunity, market insight, and competitive intelligence across 100+ countries.</p>
@@ -50,21 +80,7 @@
                                 <circle cx="15" cy="9" r="1"/>
                             </svg>
                         </div>
-                        <span class="wisdom-text">Export Opportunities</span>
-                    </button>
-                    <button class="wisdom-card"
-                            onclick="askAthena('Show me tender analysis for oncology products with success probability scoring')"
-                            aria-label="Explore tender intelligence - Analyze oncology product opportunities with success scoring"
-                            tabindex="0">
-                        <div class="wisdom-icon greek-tender" role="img" aria-label="Tender intelligence icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" focusable="false">
-                                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                                <path d="M2 17l10 5 10-5"/>
-                                <path d="M2 12l10 5 10-5"/>
-                                <circle cx="12" cy="12" r="3"/>
-                            </svg>
-                        </div>
-                        <span class="wisdom-text">Tender Intelligence</span>
+                        <span class="wisdom-text">Export Analysis</span>
                     </button>
                     <button class="wisdom-card"
                             onclick="askAthena('How is our market share performing against top 3 competitors in Europe?')"
@@ -78,8 +94,27 @@
                                 <path d="M8 12l8-8"/>
                             </svg>
                         </div>
-                        <span class="wisdom-text">Market Analysis</span>
+                        <span class="wisdom-text">Strategic Analysis</span>
                     </button>
+                </div>
+
+                <h2 class="greeting upcoming">Upcoming</h2>
+                <h2></h2>
+                <div class="wisdom-grid" role="grid" aria-label="Business Intelligence Categories">
+                    <button class="wisdom-card"
+                            onclick="askAthena('Show me tender analysis for oncology products with success probability scoring')"
+                            aria-label="Explore tender intelligence - Analyze oncology product opportunities with success scoring"
+                            tabindex="0">
+                        <div class="wisdom-icon greek-tender" role="img" aria-label="Tender intelligence icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" focusable="false">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                                <path d="M2 17l10 5 10-5"/>
+                                <path d="M2 12l10 5 10-5"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                        </div>
+                        <span class="wisdom-text">Tender Intelligence</span>
+                    </button>                    
                     <button class="wisdom-card"
                             onclick="askAthena('What regulatory changes should we track for Q4 market entry strategy?')"
                             aria-label="Explore regulatory intelligence - Track Q4 regulatory changes for market entry strategy"
@@ -94,20 +129,7 @@
                             </svg>
                         </div>
                         <span class="wisdom-text">Regulatory Intelligence</span>
-                    </button>
-                    <button class="wisdom-card sessions-card"
-                            onclick="showSessionsList()"
-                            aria-label="View previous chat sessions - Continue your conversations"
-                            tabindex="0">
-                        <div class="wisdom-icon greek-sessions" role="img" aria-label="Chat sessions icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" focusable="false">
-                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-                                <path d="M8 9h8"/>
-                                <path d="M8 13h6"/>
-                            </svg>
-                        </div>
-                        <span class="wisdom-text">Previous Chats</span>
-                    </button>
+                    </button>                    
                 </div>
             </div>
         </div>
@@ -129,6 +151,23 @@
                     rows="1"
                     maxlength="2000"
                 ></textarea>
+                
+
+
+ <!-- CHANGE Added microphone button for voice input -->
+                <button class="mic-button" id="micButton" onclick="toggleVoiceInput()" aria-label="Voice input" title="Voice input">
+                    <svg class="mic-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                        <line x1="12" y1="19" x2="12" y2="23"/>
+                        <line x1="8" y1="23" x2="16" y2="23"/>
+                    </svg>
+                    <svg class="mic-recording-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <circle cx="12" cy="12" r="8"/>
+                    </svg>
+                </button>
+
+
                 <button class="send-button" id="sendButton" onclick="sendMessage()">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <line x1="22" y1="2" x2="11" y2="13"/>
@@ -195,5 +234,116 @@
 
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="script.js"></script>
+     <script>
+        // Theme Toggle Functionality
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('athena-theme', newTheme);
+        }
+
+        // Load saved theme on page load
+        (function() {
+            const savedTheme = localStorage.getItem('athena-theme') || 'light';
+            document.body.setAttribute('data-theme', savedTheme);
+        })();
+
+        // CHANGE Voice Input Functionality using Web Speech API
+        let recognition = null;
+        let isRecording = false;
+
+        function initSpeechRecognition() {
+            if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                recognition = new SpeechRecognition();
+                recognition.continuous = true;
+                recognition.interimResults = true;
+                recognition.lang = 'en-US';
+
+                recognition.onstart = function() {
+                    console.log('[v0] Speech recognition started');
+                    isRecording = true;
+                    const micButton = document.getElementById('micButton');
+                    micButton.classList.add('recording');
+                };
+
+                recognition.onresult = function(event) {
+                    let interimTranscript = '';
+                    let finalTranscript = '';
+
+                    for (let i = event.resultIndex; i < event.results.length; i++) {
+                        const transcript = event.results[i][0].transcript;
+                        if (event.results[i].isFinal) {
+                            finalTranscript += transcript + ' ';
+                        } else {
+                            interimTranscript += transcript;
+                        }
+                    }
+
+                    const messageInput = document.getElementById('messageInput');
+                    const currentText = messageInput.value;
+                    
+                    if (finalTranscript) {
+                        messageInput.value = currentText + finalTranscript;
+                        updateCharCount();
+                    }
+                };
+
+                recognition.onerror = function(event) {
+                    console.error('[v0] Speech recognition error:', event.error);
+                    stopRecording();
+                    
+                    if (event.error === 'not-allowed') {
+                        alert('Microphone access denied. Please allow microphone access to use voice input.');
+                    }
+                };
+
+                recognition.onend = function() {
+                    console.log('[v0] Speech recognition ended');
+                    stopRecording();
+                };
+            } else {
+                console.warn('[v0] Speech recognition not supported in this browser');
+            }
+        }
+
+        function toggleVoiceInput() {
+            if (!recognition) {
+                initSpeechRecognition();
+            }
+
+            if (!recognition) {
+                alert('Voice input is not supported in your browser. Please use Chrome, Edge, or Safari.');
+                return;
+            }
+
+            if (isRecording) {
+                recognition.stop();
+            } else {
+                recognition.start();
+            }
+        }
+
+        function stopRecording() {
+            isRecording = false;
+            const micButton = document.getElementById('micButton');
+            micButton.classList.remove('recording');
+        }
+
+        function updateCharCount() {
+            const messageInput = document.getElementById('messageInput');
+            const charCount = document.getElementById('charCount');
+            charCount.textContent = messageInput.value.length;
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const messageInput = document.getElementById('messageInput');
+            messageInput.addEventListener('input', updateCharCount);
+        });
+    </script>
 </body>
 </html>

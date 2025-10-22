@@ -64,7 +64,25 @@
   --input-height: 100px;
   --max-content-width: 800px;
 }
+ /* Dark Mode Colors */
+  [data-theme="dark"] {
+    --athena-black: #F6F3EC;
+    --athena-white: #0A0B0F;
+    --athena-cream: #1A1B1F;
+    
+    --surface-primary: #0A0B0F;
+    --surface-secondary: #1A1B1F;
+    --text-primary: #F6F3EC;
+    --text-secondary: #B8BCC8;
+    --text-muted: #6B7280;
+    --accent: #D4A03A;
 
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+  }
 /* ===== RESET & BASE ===== */
 * {
   margin: 0;
@@ -103,7 +121,7 @@ body {
   justify-content: center;
   padding: 0 var(--space-6);
   background: var(--surface-primary);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid rgba(196, 141, 38, 0.2);
   position: relative;
   z-index: 10;
 }
@@ -115,7 +133,7 @@ body {
 }
 
 .athena-logo {
-  height: 96px;
+  height: 100px;
   width: auto;
   object-fit: contain;
   opacity: 0.95;
@@ -272,7 +290,7 @@ body {
 /* ===== WISDOM GRID ===== */
 .wisdom-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--space-4);
   margin-top: var(--space-12);
   max-width: 1100px;
@@ -729,7 +747,7 @@ body {
   right: 0;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  border-top: 1px solid rgba(196, 141, 38, 0.2);
   padding: var(--space-4) var(--space-6) var(--space-6);
   z-index: 20;
   min-height: var(--input-height);
@@ -742,7 +760,7 @@ body {
   align-items: center;
   gap: var(--space-3);
   background: var(--surface-primary);
-  border: 2px solid rgba(0, 0, 0, 0.08);
+  border: 2px solid rgba(196, 141, 38, 0.2);
   border-radius: var(--radius-2xl);
   padding: var(--space-4);
   transition: all 0.2s ease;
@@ -771,6 +789,82 @@ body {
 .message-input::placeholder {
   color: var(--text-muted);
 }
+
+/* Microphone button styling */
+.mic-button {
+  width: 44px;
+  height: 44px;
+  background: var(--surface-secondary);
+  border: 2px solid var(--accent);
+  border-radius: var(--radius-full);
+  color: var(--accent);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow);
+  flex-shrink: 0;
+  position: relative;
+}
+
+.mic-button:hover:not(.recording) {
+  background: var(--accent);
+  color: var(--surface-primary);
+  transform: scale(1.05);
+  box-shadow: var(--shadow-md);
+}
+
+.mic-button .mic-icon {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+.mic-button .mic-recording-icon {
+  width: 20px;
+  height: 20px;
+  display: none;
+}
+
+/* Recording state */
+.mic-button.recording {
+  background: #ef4444;
+  border-color: #dc2626;
+  color: var(--surface-primary);
+  animation: pulse-mic 1.5s ease-in-out infinite;
+}
+
+.mic-button.recording .mic-icon {
+  display: none;
+}
+
+.mic-button.recording .mic-recording-icon {
+  display: block;
+  animation: pulse-scale 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-mic {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+  }
+}
+
+@keyframes pulse-scale {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+
 
 .send-button {
   width: 44px;
@@ -1094,7 +1188,12 @@ body {
     transform: scale(1.02);
   }
 }
-
+.upcoming {
+  margin-top: 4rem;
+}
+.margin350 {
+  margin-top: 350px;
+}
 /* ===== RESPONSIVE DESIGN ===== */
 
 /* Medium screens - 3 columns for 5 pillars */
@@ -1276,11 +1375,12 @@ body {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  border: 1px solid rgba(196, 141, 38, 0.2);
 }
 
 .sessions-header {
   padding: var(--space-6);
-  border-bottom: 1px solid var(--surface-secondary);
+  border-bottom: 1px solid rgba(196, 141, 38, 0.2);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1394,8 +1494,91 @@ body {
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(196, 141, 38, 0.3);
 }
+[data-theme="dark"] .input-zone {
+    background: rgba(10, 11, 15, 0.95);
+  }
+  [data-theme="dark"] .loading-overlay {
+          background: rgba(10, 11, 15, 0.9);
+        }
+/* Theme Toggle Button */
+        .theme-toggle, .wisdom-icon2 {
+          width: 40px;
+          height: 40px;
+          background: var(--surface-secondary);
+          border: 2px solid var(--accent);
+          border-radius: var(--radius-full);
+          cursor: pointer;
+          transition: all 0.3s ease;
+          box-shadow: var(--shadow);
+          margin-left: 2px;
+        }
 
+        .theme-toggle:hover,
+        .wisdom-icon2:hover {
+          background: var(--accent);
+          transform: scale(1.05);
+          box-shadow: var(--shadow-md);
+        }
+
+        .theme-toggle svg,
+        .wisdom-icon2 svg {
+          width: 20px;
+          height: 20px;
+          color: var(--accent);
+          transition: all 0.3s ease;
+          margin: 0 auto;
+        }
+
+        .theme-toggle:hover svg,
+        .wisdom-icon2:hover svg {
+          color: var(--surface-primary);
+        }
+
+        [data-theme="dark"] .theme-toggle .sun-icon {
+          display: block;
+        }
+
+        [data-theme="dark"] .theme-toggle .moon-icon {
+          display: none;
+        }
+
+        [data-theme="light"] .theme-toggle .sun-icon {
+          display: none;
+        }
+
+        [data-theme="light"] .theme-toggle .moon-icon {
+          display: block;
+        }
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.5; }
+        }
+        .theme-toggle:focus-visible {
+          outline: 2px solid var(--accent);
+          outline-offset: 2px;
+        }
+        .header-right {
+          position: absolute;
+          right: var(--space-12);
+          display: flex;
+        }
+        .header-right .theme-toggle {
+          margin-right: 5px;
+        }
+        
 /* Mobile responsiveness for sessions modal */
+@media (max-width: 768px) {
+  .theme-toggle, .wisdom-icon2 {
+            left: var(--space-4);
+            width: 36px;
+            height: 36px;
+          }
+
+      .theme-toggle svg, .wisdom-icon2 svg {
+        width: 18px;
+        height: 18px;
+      }
+}
 @media (max-width: 640px) {
   .sessions-modal-content {
     width: 95%;
@@ -1415,3 +1598,30 @@ body {
     padding: var(--space-3);
   }
 }
+@media (max-width: 480px) {
+  .theme-toggle, .wisdom-icon2 {
+    width: 32px;
+    height: 32px;
+    }
+
+    .theme-toggle svg, .wisdom-icon2 svg {
+      width: 16px;
+      height: 16px;
+    }
+    .header-right {
+      right: var(--space-6);
+    }
+      /* Responsive sizing for mic and send buttons on mobile */
+  .mic-button,
+  .send-button {
+    width: 40px;
+    height: 40px;
+  }
+
+  .mic-button .mic-icon,
+  .mic-button .mic-recording-icon {
+    width: 18px;
+    height: 18px;
+  }
+  }
+  
