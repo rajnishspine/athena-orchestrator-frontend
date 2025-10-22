@@ -50,6 +50,18 @@
                         </div>
                         
                     </button>
+                    <button class="wisdom-icon2" style="margin-left: 5px !important;"
+                            onclick="showDefaultQuestions()" aria-label="View default questions - Quick access to common queries"
+                            tabindex="0">
+                        <div class="greek-questions" role="img" aria-label="Default questions icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" focusable="false">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                                <line x1="12" y1="17" x2="12.01" y2="17"/>
+                            </svg>
+                        </div>
+                        
+                    </button>
             </div>
             <div class="athena-logo-center">
                 <img src="./Athena Docs/Logo/Athena Face with Text and Caption.png" alt="Athena" class="athena-logo">
@@ -178,12 +190,12 @@
             <div class="input-footer">
                 <span class="char-count"><span id="charCount">0</span>/2000</span>
                 <span class="powered-by">Powered by Luna Intelligence</span>
-                <button class="config-button" id="configButton" onclick="toggleConfig()" title="Configure API">
+                <!-- <button class="config-button" id="configButton" onclick="toggleConfig()" title="Configure API">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="12" cy="12" r="3"/>
                         <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"/>
                     </svg>
-                </button>
+                </button> -->
             </div>
         </div>
 
@@ -217,6 +229,22 @@
                 <div class="sessions-footer">
                     <button class="new-chat-btn" onclick="startNewChat()">Start New Chat</button>
                 </div>
+            </div>
+        </div>
+
+        <!-- Default Questions Modal -->
+        <div class="sessions-modal" id="defaultQuestionsModal" style="display: none;">
+            <div class="sessions-modal-content">
+                <div class="sessions-header">
+                    <h3>Quick Questions</h3>
+                    <button class="sessions-close" onclick="hideDefaultQuestions()">&times;</button>
+                </div>
+                <div class="sessions-list" id="defaultQuestionsList">
+                    <!-- Default questions will be populated here -->
+                </div>
+                <!-- <div class="sessions-footer">
+                    <button class="new-chat-btn" onclick="window.open('default-questions.html', '_blank')">Manage Questions</button>
+                </div> -->
             </div>
         </div>
 

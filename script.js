@@ -332,6 +332,80 @@ function startNewChat() {
   console.log('🆕 Started new chat session:', athenaState.sessionId);
 }
 
+// ===== DEFAULT QUESTIONS MANAGEMENT =====
+async function showDefaultQuestions() {
+  const modal = document.getElementById('defaultQuestionsModal');
+  const questionsList = document.getElementById('defaultQuestionsList');
+  
+  // Show modal
+  modal.style.display = 'flex';
+  
+  // Show loading
+  questionsList.innerHTML = '<div class="sessions-loading">Loading questions...</div>';
+  
+  try {
+    console.log('🔍 Loading default questions...');
+    const response = await fetch(`${athenaState.apiBaseUrl}/default-questions`);
+    const data = await response.json();
+    
+    if (data && data.length > 0) {
+      console.log(`📚 Found ${data.length} default questions`);
+      
+      // Clear the list
+      questionsList.innerHTML = '';
+      
+      // Create questions HTML and attach event listeners
+      data.forEach(question => {
+        const questionDiv = document.createElement('div');
+        questionDiv.className = 'session-item';
+        questionDiv.style.cursor = 'pointer';
+        
+        const titleDiv = document.createElement('div');
+        titleDiv.className = 'session-title';
+        titleDiv.textContent = question.question_text;
+        
+        questionDiv.appendChild(titleDiv);
+        
+        // Attach click event listener
+        questionDiv.addEventListener('click', () => {
+          askDefaultQuestion(question.question_text);
+        });
+        
+        questionsList.appendChild(questionDiv);
+      });
+    } else {
+      questionsList.innerHTML = '<div class="sessions-empty">No default questions found</div>';
+    }
+  } catch (error) {
+    console.error('❌ Failed to load default questions:', error);
+    questionsList.innerHTML = '<div class="sessions-error">Failed to load questions</div>';
+  }
+}
+
+function hideDefaultQuestions() {
+  const modal = document.getElementById('defaultQuestionsModal');
+  modal.style.display = 'none';
+}
+
+function askDefaultQuestion(questionText) {
+  // Hide modal
+  hideDefaultQuestions();
+  
+  // Transition to chat if in welcome state
+  if (athenaState.currentState === 'welcome') {
+    transitionToChat();
+  }
+  
+  // Set the question in input and send
+  if (elements.messageInput) {
+    elements.messageInput.value = questionText;
+    handleInputChange({ target: elements.messageInput });
+    sendMessage();
+  }
+  
+  console.log('📝 Asked default question:', questionText);
+}
+
 function transitionToWelcome() {
   if (!elements.welcomeState || !elements.chatState) return;
 
@@ -998,4 +1072,11 @@ window.sendMessage = sendMessage;
 window.toggleConfig = toggleConfig;
 window.saveConfig = saveConfig;
 window.testConnection = testConnection;
+window.showDefaultQuestions = showDefaultQuestions;
+window.hideDefaultQuestions = hideDefaultQuestions;
+window.askDefaultQuestion = askDefaultQuestion;
+window.showSessionsList = showSessionsList;
+window.hideSessionsList = hideSessionsList;
+window.loadSession = loadSession;
+window.startNewChat = startNewChat;
 
