@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Athena Default Questions Manager</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
     <style>
         * {
             margin: 0;
@@ -12,8 +18,8 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #F6F3EC 0%, #FFFFFF 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -23,25 +29,49 @@
             margin: 0 auto;
             background: white;
             border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 20px 40px rgba(196, 141, 38, 0.15);
             overflow: hidden;
+            border: 1px solid rgba(196, 141, 38, 0.2);
         }
 
         .header {
-            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-            color: white;
-            padding: 30px;
+            background: linear-gradient(135deg, #F6F3EC 0%, #FFFFFF 100%);
+            color: #06070B;
+            padding: 40px 30px;
             text-align: center;
+            border-bottom: 2px solid rgba(196, 141, 38, 0.3);
+            position: relative;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #C48D26, transparent);
         }
 
         .header h1 {
+            font-family: 'Crimson Text', serif;
             font-size: 2.5rem;
             margin-bottom: 10px;
+            font-weight: 600;
+            font-style: italic;
+            background: linear-gradient(135deg, #06070B 0%, #C48D26 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .header p {
-            opacity: 0.9;
+            opacity: 0.8;
             font-size: 1.1rem;
+            color: #4A5568;
+            font-family: 'Crimson Text', serif;
+            font-style: italic;
         }
 
         .main-content {
@@ -56,21 +86,58 @@
         }
 
         .question-card {
-            border: 2px solid #e5e7eb;
+            border: 2px solid rgba(196, 141, 38, 0.2);
             border-radius: 12px;
             padding: 20px;
-            background: #f9fafb;
+            background: linear-gradient(180deg, #FFFFFF 0%, #F6F3EC 100%);
             transition: all 0.3s ease;
+            position: relative;
+            border-top: 3px solid #C48D26;
+            border-bottom: 4px solid #C48D26;
+        }
+
+        .question-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -3px;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #C48D26 0%, #B8860B 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .question-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -3px;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #C48D26 0%, #B8860B 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 2px;
         }
 
         .question-card:hover {
-            border-color: #4f46e5;
-            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.15);
+            border-color: #C48D26;
+            box-shadow: 0 12px 35px rgba(196, 141, 38, 0.2);
+            background: linear-gradient(180deg, #F6F3EC 0%, #FFFFFF 100%);
+            transform: translateY(-2px);
+        }
+
+        .question-card:hover::before,
+        .question-card:hover::after {
+            opacity: 1;
         }
 
         .question-card.inactive {
-            opacity: 0.6;
+            opacity: 0.5;
             background: #f3f4f6;
+            border-color: #e5e7eb;
         }
 
         .question-header {
@@ -81,16 +148,18 @@
         }
 
         .question-status {
-            background: #10b981;
+            background: linear-gradient(135deg, #C48D26 0%, #B8860B 100%);
             color: white;
             padding: 4px 12px;
             border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 500;
+            box-shadow: 0 2px 8px rgba(196, 141, 38, 0.3);
         }
 
         .question-status.inactive {
             background: #6b7280;
+            box-shadow: 0 2px 8px rgba(107, 114, 128, 0.2);
         }
 
         .question-text {
@@ -123,12 +192,15 @@
         }
 
         .btn-primary {
-            background: #4f46e5;
+            background: linear-gradient(135deg, #C48D26 0%, #B8860B 100%);
             color: white;
+            box-shadow: 0 2px 8px rgba(196, 141, 38, 0.3);
         }
 
         .btn-primary:hover {
-            background: #4338ca;
+            background: linear-gradient(135deg, #B8860B 0%, #C48D26 100%);
+            box-shadow: 0 4px 12px rgba(196, 141, 38, 0.4);
+            transform: translateY(-1px);
         }
 
         .btn-secondary {
@@ -150,16 +222,19 @@
         }
 
         .btn-success {
-            background: #059669;
+            background: linear-gradient(135deg, #C48D26 0%, #B8860B 100%);
             color: white;
+            box-shadow: 0 2px 8px rgba(196, 141, 38, 0.3);
         }
 
         .btn-success:hover {
-            background: #047857;
+            background: linear-gradient(135deg, #B8860B 0%, #C48D26 100%);
+            box-shadow: 0 4px 12px rgba(196, 141, 38, 0.4);
+            transform: translateY(-1px);
         }
 
         .add-question-btn {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            background: linear-gradient(135deg, #C48D26 0%, #B8860B 100%);
             color: white;
             border: none;
             padding: 15px 30px;
@@ -169,11 +244,14 @@
             cursor: pointer;
             transition: all 0.3s ease;
             margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(196, 141, 38, 0.3);
+            font-family: 'Inter', sans-serif;
         }
 
         .add-question-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+            box-shadow: 0 8px 25px rgba(196, 141, 38, 0.4);
+            background: linear-gradient(135deg, #B8860B 0%, #C48D26 100%);
         }
 
         .modal {
@@ -199,6 +277,8 @@
             max-width: 600px;
             max-height: 90vh;
             overflow-y: auto;
+            border: 2px solid rgba(196, 141, 38, 0.3);
+            box-shadow: 0 20px 40px rgba(196, 141, 38, 0.2);
         }
 
         .modal-header {
@@ -207,13 +287,26 @@
             align-items: center;
             margin-bottom: 25px;
             padding-bottom: 15px;
-            border-bottom: 2px solid #e5e7eb;
+            border-bottom: 2px solid rgba(196, 141, 38, 0.2);
+            position: relative;
+        }
+
+        .modal-header::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, #C48D26, transparent);
         }
 
         .modal-title {
+            font-family: 'Crimson Text', serif;
             font-size: 1.5rem;
             font-weight: 600;
-            color: #1f2937;
+            color: #06070B;
+            font-style: italic;
         }
 
         .close-btn {
@@ -222,6 +315,18 @@
             font-size: 1.5rem;
             cursor: pointer;
             color: #6b7280;
+            transition: all 0.2s ease;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn:hover {
+            background: rgba(196, 141, 38, 0.1);
+            color: #C48D26;
         }
 
         .form-group {
@@ -238,19 +343,22 @@
         .form-textarea {
             width: 100%;
             padding: 12px;
-            border: 2px solid #d1d5db;
+            border: 2px solid rgba(196, 141, 38, 0.2);
             border-radius: 8px;
             font-size: 1rem;
-            transition: border-color 0.2s ease;
+            transition: all 0.2s ease;
             min-height: 120px;
             font-family: inherit;
             line-height: 1.5;
             resize: vertical;
+            background: #FFFFFF;
         }
 
         .form-textarea:focus {
             outline: none;
-            border-color: #4f46e5;
+            border-color: #C48D26;
+            box-shadow: 0 0 0 3px rgba(196, 141, 38, 0.1);
+            background: #F6F3EC;
         }
 
         .form-checkbox {
@@ -265,20 +373,23 @@
 
         .error {
             background: #fef2f2;
-            border: 1px solid #fecaca;
+            border: 2px solid #fecaca;
             color: #dc2626;
             padding: 15px;
             border-radius: 8px;
             margin-bottom: 20px;
+            border-left: 4px solid #dc2626;
         }
 
         .success {
-            background: #f0fdf4;
-            border: 1px solid #bbf7d0;
-            color: #059669;
+            background: #FFF9E6;
+            border: 2px solid rgba(196, 141, 38, 0.3);
+            color: #B8860B;
             padding: 15px;
             border-radius: 8px;
             margin-bottom: 20px;
+            border-left: 4px solid #C48D26;
+            font-weight: 500;
         }
     </style>
 </head>
