@@ -16,7 +16,7 @@ class AthenaState {
       role: 'Venus Remedies'
     };
     this.sessionId = this.generateSessionId();
-    this.apiBaseUrl = 'http://10.0.33.97:8001'; // Default to localhost, can be configured
+    this.apiBaseUrl = ''; // Will be set from config.js
   }
 
   generateSessionId() {
@@ -60,6 +60,11 @@ class AthenaState {
 
 // Initialize global state
 const athenaState = new AthenaState();
+
+// Load API URL from config
+if (typeof ATHENA_CONFIG !== 'undefined') {
+    athenaState.apiBaseUrl = ATHENA_CONFIG.getApiUrl();
+}
 
 // ===== DOM ELEMENTS =====
 const elements = {
