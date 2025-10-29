@@ -209,54 +209,134 @@ function scrollToBottom() {
   }
 }
 
-// ===== SESSIONS LIST MANAGEMENT =====
+// ===== SESSIONS LIST MANAGEMENT WITH INFINITE SCROLL =====
+let sessionsState = {
+    isLoading: false,
+    hasMore: true,
+    offset: 0,
+    limit: 20,
+    allSessions: []
+};
+
 async function showSessionsList() {
-  const modal = document.getElementById('sessionsModal');
-  const sessionsList = document.getElementById('sessionsList');
-  
-  // Show modal
-  modal.style.display = 'flex';
-  
-  // Show loading
-  sessionsList.innerHTML = '<div class="sessions-loading">Loading conversations...</div>';
-  
-  try {
-    console.log('🔍 Loading sessions list...');
-    const response = await fetch(`${athenaState.apiBaseUrl}/sessions`);
-    const data = await response.json();
+    const modal = document.getElementById('sessionsModal');
+    const sessionsList = document.getElementById('sessionsList');
     
-    if (data.sessions && data.sessions.length > 0) {
-      console.log(`📚 Found ${data.sessions.length} sessions`);
-      
-      // Create sessions HTML
-      const sessionsHtml = data.sessions.map(session => {
-        const date = new Date(session.updated_at).toLocaleDateString();
-        const time = new Date(session.updated_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-        const title = session.title || 'Untitled Chat';
-        
-        return `
-          <div class="session-item" onclick="loadSession('${session.session_id}')">
-            <div class="session-title">${title}</div>
-            <div class="session-meta">
-              <span class="session-date">${date} at ${time}</span>
-            </div>
-          </div>
-        `;
-      }).join('');
-      
-      sessionsList.innerHTML = sessionsHtml;
-    } else {
-      sessionsList.innerHTML = '<div class="sessions-empty">No previous conversations found</div>';
+    // Reset state
+    sessionsState = {
+        isLoading: false,
+        hasMore: true,
+        offset: 0,
+        limit: 50,
+        allSessions: []
+    };
+    
+    // Show modal
+    modal.style.display = 'flex';
+    
+    // Clear list
+    sessionsList.innerHTML = '<div class="sessions-loading">Loading conversations...</div>';
+    
+    // Load initial sessions
+    await loadMoreSessions();
+}
+
+async function loadMoreSessions() {
+    if (sessionsState.isLoading || !sessionsState.hasMore) {
+        return;
     }
-  } catch (error) {
-    console.error('❌ Failed to load sessions:', error);
-    sessionsList.innerHTML = '<div class="sessions-error">Failed to load conversations</div>';
-  }
+    
+    sessionsState.isLoading = true;
+    const sessionsList = document.getElementById('sessionsList');
+    
+    // Show loading state on button if it exists
+    const loadMoreBtn = document.getElementById('loadMoreSessionsBtn');
+    if (loadMoreBtn) {
+        loadMoreBtn.textContent = 'Loading...';
+        loadMoreBtn.disabled = true;
+    }
+    
+    try {
+        console.log(`🔍 Loading sessions (offset: ${sessionsState.offset}, limit: ${sessionsState.limit})...`);
+        
+        const response = await fetch(
+            `${athenaState.apiBaseUrl}/sessions?limit=${sessionsState.limit}&offset=${sessionsState.offset}`
+        );
+        const data = await response.json();
+        
+        if (data.sessions && data.sessions.length > 0) {
+            console.log(`📚 Loaded ${data.sessions.length} sessions (total: ${data.total})`);
+            
+            // Add to all sessions
+            sessionsState.allSessions.push(...data.sessions);
+            sessionsState.hasMore = data.has_more || false;
+            sessionsState.offset += data.sessions.length;
+            
+            // If this is the first load, clear loading message
+            if (sessionsState.offset === data.sessions.length) {
+                sessionsList.innerHTML = '';
+            }
+            
+            // Remove old load more button if exists
+            const oldLoadMoreBtn = document.getElementById('loadMoreSessionsBtn');
+            if (oldLoadMoreBtn) {
+                oldLoadMoreBtn.remove();
+            }
+            
+            // Create and append session items
+            data.sessions.forEach(session => {
+                const date = new Date(session.updated_at).toLocaleDateString();
+                const time = new Date(session.updated_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                const title = session.title || 'Untitled Chat';
+                
+                const sessionDiv = document.createElement('div');
+                sessionDiv.className = 'session-item';
+                sessionDiv.onclick = () => loadSession(session.session_id);
+                sessionDiv.innerHTML = `
+                    <div class="session-title">${title}</div>
+                    <div class="session-meta">
+                        <span class="session-date">${date} at ${time}</span>
+                    </div>
+                `;
+                
+                sessionsList.appendChild(sessionDiv);
+            });
+            
+            // Add "Load More" button if there are more sessions
+            if (sessionsState.hasMore) {
+                const loadMoreBtn = document.createElement('button');
+                loadMoreBtn.className = 'load-more-sessions-btn';
+                loadMoreBtn.id = 'loadMoreSessionsBtn';
+                loadMoreBtn.textContent = 'Load More';
+                loadMoreBtn.onclick = () => loadMoreSessions();
+                sessionsList.appendChild(loadMoreBtn);
+            } else {
+                // Add "no more" indicator
+                const endDiv = document.createElement('div');
+                endDiv.className = 'sessions-end';
+                endDiv.textContent = 'All conversations loaded';
+                endDiv.style.textAlign = 'center';
+                endDiv.style.padding = '15px';
+                endDiv.style.color = 'var(--color-text-secondary)';
+                endDiv.style.fontSize = '12px';
+                sessionsList.appendChild(endDiv);
+            }
+        } else if (sessionsState.offset === 0) {
+            sessionsList.innerHTML = '<div class="sessions-empty">No previous conversations found</div>';
+        }
+    } catch (error) {
+        console.error('❌ Failed to load sessions:', error);
+        if (sessionsState.offset === 0) {
+            sessionsList.innerHTML = '<div class="sessions-error">Failed to load conversations</div>';
+        }
+    } finally {
+        sessionsState.isLoading = false;
+    }
 }
 
 function hideSessionsList() {
-  const modal = document.getElementById('sessionsModal');
-  modal.style.display = 'none';
+    const modal = document.getElementById('sessionsModal');
+    modal.style.display = 'none';
 }
 
 async function loadSession(sessionId) {

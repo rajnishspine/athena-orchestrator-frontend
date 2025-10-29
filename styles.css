@@ -1625,4 +1625,39 @@ body {
     height: 18px;
   }
   }
+
+/* ===== NEW: Sessions Load More Button Styles ===== */
+.sessions-end {
+    text-align: center;
+    padding: 15px;
+    color: var(--text-muted);
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+.load-more-sessions-btn {
+    width: calc(100% - 32px);
+    margin: 16px;
+    padding: 12px 24px;
+    background: var(--accent);
+    color: var(--athena-white);
+    border: none;
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.load-more-sessions-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.load-more-sessions-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
   
