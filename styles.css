@@ -1163,11 +1163,29 @@ body {
   object-fit: contain;
 }
 
+/* Light theme: show regular leaf, hide gold leaf */
+.leaf-pulse-light {
+  display: block;
+}
+
+.leaf-pulse-dark {
+  display: none;
+}
+
+/* Dark theme: hide regular leaf, show gold leaf */
+[data-theme="dark"] .leaf-pulse-light {
+  display: none;
+}
+
+[data-theme="dark"] .leaf-pulse-dark {
+  display: block;
+}
+
 .thinking-text {
   font-size: var(--text-lg);
   color: var(--text-secondary);
   font-style: italic;
-  color: #6b7280;
+  color: #b8bcc8;
 }
 
 @keyframes pulse-leaf {
@@ -1499,7 +1517,7 @@ body {
     background: rgba(10, 11, 15, 0.95);
   }
   [data-theme="dark"] .loading-overlay {
-          background: #d4a03a;
+          background: rgba(10, 11, 15, 0.95);
         }
 /* Theme Toggle Button */
         .theme-toggle, .wisdom-icon2 {
