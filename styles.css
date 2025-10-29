@@ -1167,6 +1167,7 @@ body {
   font-size: var(--text-lg);
   color: var(--text-secondary);
   font-style: italic;
+  color: #6b7280;
 }
 
 @keyframes pulse-leaf {
@@ -1498,7 +1499,7 @@ body {
     background: rgba(10, 11, 15, 0.95);
   }
   [data-theme="dark"] .loading-overlay {
-          background: rgba(10, 11, 15, 0.9);
+          background: #d4a03a;
         }
 /* Theme Toggle Button */
         .theme-toggle, .wisdom-icon2 {
